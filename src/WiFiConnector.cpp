@@ -78,10 +78,12 @@ bool WiFiConnectorClass::connecting() {
     return _tryConnect;
 }
 
-// void WiFiConnectorClass::onTimeout(ConnectorCallback cb) __attribute__((deprecated)) {
-//     _err_cb = cb;
-// }
+void WiFiConnectorClass::onTimeout(ConnectorCallback cb) {
+    _err_cb = cb;
+}
 
 void WiFiConnectorClass::_startAP() {
     WiFi.softAP(_APname.c_str(), _APpass.c_str());
 }
+
+WiFiConnectorClass WiFiConnector;

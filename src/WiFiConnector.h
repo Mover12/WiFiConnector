@@ -59,4 +59,4 @@ class WiFiConnectorClass {
         void _startAP();
 };
 
-WiFiConnectorClass WiFiConnector;
+extern WiFiConnectorClass WiFiConnector;
