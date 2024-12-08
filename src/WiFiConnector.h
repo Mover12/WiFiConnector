@@ -11,7 +11,7 @@ class WiFiConnectorClass {
     typedef std::function<void()> ConnectorCallback;
 
    public:
-    // имя AP, пароль AP, таймаут в секундах, отключать AP при успешном подключении к STA (иначе AP_STA)
+    // имя AP, пароля нет, таймаут в секундах, отключать AP при успешном подключении к STA (иначе AP_STA)
     WiFiConnectorClass(const String& APname = "ESP AP",
                        const String& APpass = "",
                        uint16_t timeout = 60,
