@@ -15,6 +15,4 @@ void setup() {
     });
 }
 
-void loop() {
-    WiFiConnector.tick();
-}
+void loop() {}
