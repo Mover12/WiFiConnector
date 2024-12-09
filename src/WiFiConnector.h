@@ -11,20 +11,11 @@ class WiFiConnectorClass {
     typedef std::function<void()> ConnectorCallback;
 
     public:
-        // имя AP, пароля нет, таймаут 60 секунд, отключать AP при успешном подключении к STA (иначе AP_STA)
-        WiFiConnectorClass(const String& APname = "ESP AP", const String& APpass = "", uint16_t timeout = 60, bool closeAP = true);
-
         // установить имя AP
-        void setName(const String& name);
+        void setName(const char* APssid);
 
         // установить пароль AP
-        void setPass(const String& pass);
-
-        // установить таймаут в секундах
-        void setTimeout(uint16_t timeout);
-
-        // автоматически отключать AP при подключении к STA (умолч. вкл)
-        void closeAP(bool close);
+        void setPass(const char* APpass);
 
         // подключить обработчик успешного подключения
         void onConnect(ConnectorCallback cb);
@@ -33,30 +24,16 @@ class WiFiConnectorClass {
         void onError(ConnectorCallback cb);
 
         // подключиться. Вернёт false если ssid не задан, будет запущена AP
-        bool connect(const String& ssid, const String& pass = emptyString);
+        void connect(const char* ssid, const char* pass="");
 
-        // вызывать в loop. Вернёт true при смене состояния
-        bool tick();
-
-        // состояние подключения. true - подключен, false - запущена АР
-        bool connected();
-
-        // в процессе подключения
-        bool connecting();
-
-        // подключить обработчик таймаута подключения
-        void onTimeout(ConnectorCallback cb) __attribute__((deprecated));
-
+        // вызвать в setup один раз
+        void begin(const char* APssid="", const char* APpass="");
     private:
-        String _APname, _APpass;
-        uint32_t _tmr = 0, _tout;
-        bool _closeAP = false;
-        bool _tryConnect = false;
+        char _APssid[32];
+        char _APpass[64];
 
         ConnectorCallback _conn_cb = nullptr;
         ConnectorCallback _err_cb = nullptr;
-
-        void _startAP();
 };
 
 extern WiFiConnectorClass WiFiConnector;
